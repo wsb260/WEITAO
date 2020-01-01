@@ -10,12 +10,12 @@
                 <el-form-item prop="username">
                     <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item prop="password">
                     <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
                 </el-form-item>
                 <el-form-item class="btns">
                     <el-button type="primary">登录</el-button>
-                    <el-button type="primary">重置</el-button>
+                    <el-button type="info" @click="resetLoginForm">重置</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -40,6 +40,11 @@ export default {
                     {min:6,max:15,message:"长度在6到15个字符之间",trigger:"blur"}
                 ]
             }
+        }
+    },
+    methods:{
+        resetLoginForm(){ // 表单重置
+            this.$refs.form.resetFields()
         }
     }
 }
