@@ -14,7 +14,7 @@
                     <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
                 </el-form-item>
                 <el-form-item class="btns">
-                    <el-button type="primary">登录</el-button>
+                    <el-button type="primary" @click="login">登录</el-button>
                     <el-button type="info" @click="resetLoginForm">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -22,6 +22,7 @@
     </div>
 </template>
 <script>
+import Cookies from 'js-cookie'
 export default {
     name:'login',
     data(){
@@ -43,9 +44,36 @@ export default {
         }
     },
     methods:{
-        resetLoginForm(){ // 表单重置
+        resetLoginForm() { // 表单重置
             this.$refs.form.resetFields()
+        },
+        login() { // 登录验证
+            this.$refs.form.validate(async (valid)=>{
+                if(!valid) return;
+                let { data:res } = await this.requestLogin()
+                if(res.meta.status === 200){
+                    // 提示
+                    this.$message.success("登录成功")
+                    // 记录token
+                    Cookies.set("token",res.data.token)
+                    // 跳转到主页this.$router.push()
+                    this.$router.push('/home')
+                }else{
+                    this.$message.error("登录失败")
+                }
+            })
+        },
+        requestLogin() { // 登录验证接口
+            return new Promise((resolve,reject)=>{
+                this.$axios.post('/login',this.loginForm).then(res=>{
+                    resolve(res)
+                }).catch(error=>{
+                    reject(error)
+                })
+            })
         }
+    },
+    mounted(){
     }
 }
 </script>
