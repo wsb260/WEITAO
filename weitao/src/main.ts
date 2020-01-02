@@ -10,7 +10,7 @@ import './assets/css/global.css'
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios
-console.log(axios)
+
 Vue.use(ElementUI)
 new Vue({
   router,
