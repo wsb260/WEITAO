@@ -19,7 +19,9 @@
                     active-text-color="#ffd04b"
                     :unique-opened="true"
                     :collapse="isCollapse"
-                    :collapse-transition="false">
+                    :collapse-transition="false"
+                    :router="true"
+                    :default-active="this.$route.path">
                     <!-- 一级菜单 -->
                     <el-submenu :index="String(item.id)" v-for="item in menuList" :key="item.id">
                         <template slot="title">
@@ -29,7 +31,7 @@
                             <span>{{item.authName}}</span>
                         </template>
                         <!-- 二级菜单 -->
-                        <el-menu-item :index="String(subItem.id)" v-for="subItem in item.children" :key="subItem.id">
+                        <el-menu-item :index="String(subItem.path)" v-for="subItem in item.children" :key="subItem.id">
                             <template slot="title">
                                 <!-- 图标 -->
                                 <i class="el-icon-menu"></i>
@@ -41,7 +43,9 @@
                 </el-menu>
             </el-aside>
             <!-- 右侧内容主体 -->
-            <el-main>main</el-main>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
         </el-container>        
     </el-container>
 </template>
@@ -64,7 +68,7 @@ export default {
                 '500':'el-icon-s-data'
             },
             // 导航伸缩
-            isCollapse:true
+            isCollapse:false
         }
     },
     created(){
@@ -124,6 +128,7 @@ export default {
 }
 
 .toggle-button{
+    width:100%;
     background: #4a5064;
     font-size:10px;
     line-height:24px;

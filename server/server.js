@@ -40,7 +40,7 @@ router.get('/getMenus',(ctx)=>{
         {
           "id":101,
           "authName":"用户列表",
-          "path":null,
+          "path":"/user",
           "children":[]
         }
       ]
@@ -53,13 +53,13 @@ router.get('/getMenus',(ctx)=>{
         {
           "id":201,
           "authName":"角色列表",
-          "path":null,
+          "path":"/roles",
           "children":[]
         },
         {
           "id":202,
           "authName":"权限列表",
-          "path":null,
+          "path":"/permissions",
           "children":[]
         }
       ]
@@ -72,13 +72,13 @@ router.get('/getMenus',(ctx)=>{
         {
           "id":301,
           "authName":"商品列表",
-          "path":null,
+          "path":'/list-goods',
           "children":[]
         },
         {
           "id":302,
           "authName":"分类参数",
-          "path":null,
+          "path":"/goods",
           "children":[]
         },
         {
@@ -120,6 +120,56 @@ router.get('/getMenus',(ctx)=>{
       "status":200
     }
   }
+})
+// 获取用户列表接口
+router.get('/getUserList',(ctx)=>{
+  let obj = {
+    data:{
+      pagenum:1,
+      total:4,
+      users:[{
+        "id":500,
+        "role_name":"超级管理员",
+        "username":"admin",
+        "create_time":new Date(),
+        "mobile":"14423457681",
+        "email" : "admin@123.com",
+        "ms_state" : true // 当前用户状态
+      },
+      {
+        "id":501,
+        "role_name":"普通角色1",
+        "username":"Frnk",
+        "create_time":new Date(),
+        "mobile":"15677623321",
+        "email" :"test@qq.com",
+        "ms_state":false
+      },
+      {
+        "id":502,
+        "role_name":"普通角色2",
+        "username":"DR",
+        "create_time":new Date(),
+        "mobile":"15677555321",
+        "email" :"test@qq.com",
+        "ms_state":false
+      },
+      {
+        "id":503,
+        "role_name":"普通角色3",
+        "username":"ERR",
+        "create_time":new Date(),
+        "mobile":"15623423111",
+        "email" :"test@qq.com",
+        "ms_state":true
+      }]
+    },
+    meta:{
+      status:200,
+      msg:"获取管理员列表成功"
+    }
+  }
+  ctx.body = obj
 })
 app.use(router.routes()).use(router.allowedMethods())
 app.listen(3000,()=>{
