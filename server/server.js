@@ -2,12 +2,27 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const cors = require('koa2-cors')
 const bodyParser = require('koa-bodyparser')
+const sqlite3 = require('sqlite3').verbose()
 const app = new Koa()
 const router = new Router()
 
 app.use(cors())
 app.use(bodyParser())
 
+// 操作数据库
+var database;
+
+database = new sqlite3.Database("myDatabase.db",()=>{
+  
+})
+// database.run("create table db (id INT,name VARCHAR,password VARCHAR)",(err)=>{
+//   if(err) throw err;
+//   console.log("数据表创建成功")
+// })
+database.run(`insert into db values (1,"admin","admin")`,(err)=>{
+  if(err) throw err;
+  console.log("数据插入成功")
+})
 router.get('/login',(ctx,next)=>{
   ctx.body = true
 })
