@@ -1,7 +1,10 @@
 const express = require('express')
+const db = require('./mongodb/connect')
 const config = require('config-lite')(__dirname)
-
+const routes = require('./routes/index')
+const bodyparser = require('body-parser')
 let app = express()
+app.use(bodyparser())
 // 配置跨域
 app.all('*',(req,res,next)=>{
     const { origin,Origin,referer,Referer } = req.headers
@@ -18,9 +21,12 @@ app.all('*',(req,res,next)=>{
     }
 })
 app.get('/users/:userId/books/:bookId',(req,res)=>{
-    console.log(req.url)
+    console.log(req.params)
     res.send('hl molong')
 })
+// 路由配置
+routes(app)
+// 启动监听
 app.listen(config.port,()=>{
     console.log(`成功监听端口:${config.port}`)
 })
