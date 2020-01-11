@@ -23,10 +23,15 @@ const routes = [
         name:'welcome',
         component:() => import('../components/Welcome.vue')
       },
-      {
+      { // 用户列表
         path:'/user',
         name:'user',
         component:() => import('../components/User/user.vue')
+      },
+      { // 权限列表
+        path:'/permissions',
+        name:'permissions',
+        component:() => import('../components/Power/permissions.vue')
       }
     ]
   }
